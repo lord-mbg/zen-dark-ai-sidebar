@@ -1,0 +1,65 @@
+/*
+ * Zen Dark AI Sidebar Mod
+ * Fixes light header in the built-in Firefox AI Chatbot sidebar when using dark themes in Zen Browser.
+ */
+
+@-moz-document url-prefix("chrome://browser/content/genai/chat.html") {
+  :root {
+    --zen-dark-ai-bg: #18181b;
+    --zen-dark-ai-text: #f4f4f5;
+    --zen-dark-ai-border: rgba(255, 255, 255, 0.08);
+
+    @media -moz-pref("zen.view.window.scheme", 0) {
+      color-scheme: dark !important;
+      --sidebar-background-color: var(--zen-dark-ai-bg) !important;
+      --sidebar-text-color: var(--zen-dark-ai-text) !important;
+    }
+
+    @media -moz-pref("zen.view.window.scheme", 1) {
+      color-scheme: light !important;
+    }
+
+    @media -moz-pref("zen.view.window.scheme", 2) {
+      @media (-moz-system-dark-theme) {
+        color-scheme: dark !important;
+        --sidebar-background-color: var(--zen-dark-ai-bg) !important;
+        --sidebar-text-color: var(--zen-dark-ai-text) !important;
+      }
+      @media not (-moz-system-dark-theme) {
+        color-scheme: light !important;
+      }
+    }
+  }
+
+  /* Preference: Pure Black (OLED) */
+  @media (-moz-pref("mod.dark_ai_sidebar.bg_shade", "oled")) {
+    :root {
+      --zen-dark-ai-bg: #000000 !important;
+    }
+  }
+
+  /* Preference: Midnight Navy */
+  @media (-moz-pref("mod.dark_ai_sidebar.bg_shade", "midnight")) {
+    :root {
+      --zen-dark-ai-bg: #0f172a !important;
+    }
+  }
+
+  #header {
+    background-color: var(--sidebar-background-color, var(--zen-dark-ai-bg)) !important;
+    color: var(--sidebar-text-color, var(--zen-dark-ai-text)) !important;
+    border-bottom: 1px solid var(--zen-dark-ai-border) !important;
+  }
+
+  /* Preference: Hide duplicate sidebar switcher when Zen already shows the panel header */
+  @media (-moz-pref("mod.dark_ai_sidebar.hide_duplicate_title")) {
+    sidebar-panel-switcher {
+      display: none !important;
+    }
+
+    #header {
+      grid-template-areas: "provider perm more close" !important;
+      grid-template-columns: 1fr auto auto auto !important;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "property": "mod.dark_ai_sidebar.hide_duplicate_title",
+    "label": "Hide duplicate panel title (saves vertical space)",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "mod.dark_ai_sidebar.bg_shade",
+    "label": "Header background style",
+    "type": "dropdown",
+    "defaultValue": "zen",
+    "options": [
+      {
+        "label": "Zen Dark (Default)",
+        "value": "zen"
+      },
+      {
+        "label": "Pure Black (OLED)",
+        "value": "oled"
+      },
+      {
+        "label": "Midnight Navy",
+        "value": "midnight"
+      }
+    ]
+  }
+]
