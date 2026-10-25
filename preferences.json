@@ -16,6 +16,10 @@
         "value": "zen"
       },
       {
+        "label": "Acrylic / Translucent",
+        "value": "acrylic"
+      },
+      {
         "label": "Pure Black (OLED)",
         "value": "oled"
       },
