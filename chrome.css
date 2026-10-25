@@ -1,72 +1,72 @@
 /*
  * Zen Dark AI Sidebar Mod
- * Matches the built-in Firefox AI Chatbot sidebar to Zen's active theme and gradient.
+ * Clean dark theme with Zen workspace gradient accent for the built-in AI Chatbot sidebar.
  */
 
-/* 1. Style the sidebar container in the browser window to carry the workspace gradient */
-#sidebar-box {
-  background: var(--zen-main-browser-background, var(--zen-colors-primary, #18181b)) !important;
-}
-
-#sidebar {
-  background: transparent !important;
-}
-
-/* 2. Style the AI Chatbot inner document (chat.html) */
 @-moz-document url-prefix("chrome://browser/content/genai/chat.html") {
-  :root, html, body {
-    color-scheme: dark !important;
-    background: transparent !important;
+  :root {
+    --zen-dark-ai-bg: #18181b;
+    --zen-dark-ai-text: #f4f4f5;
+
+    @media -moz-pref("zen.view.window.scheme", 0) {
+      color-scheme: dark !important;
+      --sidebar-background-color: var(--zen-dark-ai-bg) !important;
+      --sidebar-text-color: var(--zen-dark-ai-text) !important;
+    }
+
+    @media -moz-pref("zen.view.window.scheme", 1) {
+      color-scheme: light !important;
+    }
+
+    @media -moz-pref("zen.view.window.scheme", 2) {
+      @media (-moz-system-dark-theme) {
+        color-scheme: dark !important;
+        --sidebar-background-color: var(--zen-dark-ai-bg) !important;
+        --sidebar-text-color: var(--zen-dark-ai-text) !important;
+      }
+      @media not (-moz-system-dark-theme) {
+        color-scheme: light !important;
+      }
+    }
   }
 
-  /* Default / Workspace Theme Match:
-     Header is transparent so Zen's workspace gradient (pink/yellow) shines right through! */
+  /* Default Header: Dark with subtle warm tint and pink-to-yellow gradient accent line */
   #header {
-    background: transparent !important;
-    color: #ffffff !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    background: linear-gradient(90deg, rgba(236, 72, 153, 0.16), rgba(234, 179, 8, 0.10)), #18181b !important;
+    color: var(--zen-dark-ai-text) !important;
+    border-bottom: 2px solid !important;
+    border-image: linear-gradient(90deg, #ec4899, #eab308) 1 !important;
   }
 
-  /* Polished provider selector (ChatGPT dropdown) */
+  /* Provider selector (ChatGPT pill) */
   #provider {
-    border-radius: 8px !important;
-    padding: 4px 10px !important;
-    border: 1px solid rgba(255, 255, 255, 0.25) !important;
-    background-color: rgba(0, 0, 0, 0.35) !important;
-    color: #ffffff !important;
+    border-radius: 6px !important;
+    padding: 3px 8px !important;
+    border: 1px solid rgba(236, 72, 153, 0.35) !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: var(--zen-dark-ai-text) !important;
     font-size: 0.9em !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-  }
-
-  #provider:hover {
-    background-color: rgba(0, 0, 0, 0.5) !important;
-    border-color: rgba(255, 255, 255, 0.4) !important;
   }
 
   moz-button {
-    border-radius: 8px !important;
-    color: #ffffff !important;
+    border-radius: 6px !important;
   }
 
   /* Preference: Pure Black (OLED) */
   @media (-moz-pref("mod.dark_ai_sidebar.bg_shade", "oled")) {
     #header {
-      background-color: #000000 !important;
+      background: #000000 !important;
+      border-image: none !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
     }
   }
 
   /* Preference: Solid Zen Dark */
   @media (-moz-pref("mod.dark_ai_sidebar.bg_shade", "zen")) {
     #header {
-      background-color: #18181b !important;
-    }
-  }
-
-  /* Preference: Midnight Navy */
-  @media (-moz-pref("mod.dark_ai_sidebar.bg_shade", "midnight")) {
-    #header {
-      background-color: #0f172a !important;
+      background: #18181b !important;
+      border-image: none !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
     }
   }
 
