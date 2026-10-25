@@ -1,76 +1,68 @@
-/*
- * Zen Dark AI Sidebar Mod
- * Clean dark theme with Zen workspace gradient accent for the built-in AI Chatbot sidebar.
- */
-
-@-moz-document url-prefix("chrome://browser/content/genai/chat.html") {
+/* Match the built-in AI sidebar to Zen's active workspace without copying colors. */
+@-moz-document url("chrome://browser/content/genai/chat.html") {
   :root {
-    --zen-dark-ai-bg: #18181b;
-    --zen-dark-ai-text: #f4f4f5;
-
     @media -moz-pref("zen.view.window.scheme", 0) {
       color-scheme: dark !important;
-      --sidebar-background-color: var(--zen-dark-ai-bg) !important;
-      --sidebar-text-color: var(--zen-dark-ai-text) !important;
     }
-
     @media -moz-pref("zen.view.window.scheme", 1) {
       color-scheme: light !important;
     }
-
     @media -moz-pref("zen.view.window.scheme", 2) {
-      @media (-moz-system-dark-theme) {
-        color-scheme: dark !important;
-        --sidebar-background-color: var(--zen-dark-ai-bg) !important;
-        --sidebar-text-color: var(--zen-dark-ai-text) !important;
-      }
-      @media not (-moz-system-dark-theme) {
-        color-scheme: light !important;
-      }
+      color-scheme: light dark !important;
     }
   }
+}
 
-  /* Default Header: Dark with subtle warm tint and pink-to-yellow gradient accent line */
-  #header {
-    background: linear-gradient(90deg, rgba(236, 72, 153, 0.16), rgba(234, 179, 8, 0.10)), #18181b !important;
-    color: var(--zen-dark-ai-text) !important;
-    border-bottom: 2px solid !important;
-    border-image: linear-gradient(90deg, #ec4899, #eab308) 1 !important;
+/* The actual workspace gradient is painted behind #sidebar-box in browser.xhtml. */
+@media (-moz-pref("mod.dark_ai_sidebar.bg_shade", "workspace")) {
+  #sidebar-box[sidebarcommand="viewGenaiChatSidebar"] {
+    background: transparent !important;
+    color: var(--toolbox-textcolor) !important;
   }
 
-  /* Provider selector (ChatGPT pill) */
-  #provider {
-    border-radius: 6px !important;
-    padding: 3px 8px !important;
-    border: 1px solid rgba(236, 72, 153, 0.35) !important;
-    background-color: rgba(255, 255, 255, 0.08) !important;
-    color: var(--zen-dark-ai-text) !important;
-    font-size: 0.9em !important;
+  #sidebar-box[sidebarcommand="viewGenaiChatSidebar"] #sidebar {
+    background: transparent !important;
   }
 
-  moz-button {
-    border-radius: 6px !important;
-  }
+  @-moz-document url("chrome://browser/content/genai/chat.html") {
+    :root {
+      background: transparent !important;
+      --background-color-canvas: transparent !important;
+    }
 
-  /* Preference: Pure Black (OLED) */
-  @media (-moz-pref("mod.dark_ai_sidebar.bg_shade", "oled")) {
+    body,
     #header {
-      background: #000000 !important;
-      border-image: none !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+      background: transparent !important;
+    }
+
+    #header {
+      color: CanvasText !important;
     }
   }
+}
 
-  /* Preference: Solid Zen Dark */
+@-moz-document url("chrome://browser/content/genai/chat.html") {
   @media (-moz-pref("mod.dark_ai_sidebar.bg_shade", "zen")) {
     #header {
-      background: #18181b !important;
-      border-image: none !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+      background-color: light-dark(#fff, #18181b) !important;
+      color: CanvasText !important;
     }
   }
 
-  /* Preference: Hide duplicate sidebar switcher */
+  @media (-moz-pref("mod.dark_ai_sidebar.bg_shade", "oled")) {
+    #header {
+      background-color: light-dark(#fff, #000) !important;
+      color: CanvasText !important;
+    }
+  }
+
+  @media (-moz-pref("mod.dark_ai_sidebar.bg_shade", "midnight")) {
+    #header {
+      background-color: #0f172a !important;
+      color: #f4f4f5 !important;
+    }
+  }
+
   @media (-moz-pref("mod.dark_ai_sidebar.hide_duplicate_title")) {
     sidebar-panel-switcher {
       display: none !important;
