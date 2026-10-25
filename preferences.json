@@ -9,15 +9,15 @@
     "property": "mod.dark_ai_sidebar.bg_shade",
     "label": "Header background style",
     "type": "dropdown",
-    "defaultValue": "zen",
+    "defaultValue": "workspace",
     "options": [
       {
-        "label": "Zen Dark (Default)",
-        "value": "zen"
+        "label": "Match Workspace Theme (Gradient / Accent)",
+        "value": "workspace"
       },
       {
-        "label": "Acrylic / Translucent",
-        "value": "acrylic"
+        "label": "Solid Zen Dark",
+        "value": "zen"
       },
       {
         "label": "Pure Black (OLED)",
